@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>张倩 — AI 产品经理</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Caveat:wght@400;700&family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #2B7FD8;
+      --blue-deep: #1E5BA8;
+      --blue-soft: rgba(43,127,216,0.08);
+      --yellow: #F4D758;
+      --yellow-soft: rgba(244,215,88,0.15);
+      --red: #E84A5F;
+      --red-soft: rgba(232,74,95,0.08);
+      --cream: #fefcf6;
+      --cream-dark: #faf6eb;
+      --ink: #1A1A2E;
+      --ink-light: #4A4A5A;
+      --ink-faint: #8A8A9A;
+      --dark-panel: #151821;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans SC', -apple-system, 'PingFang SC', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--ink);
+      background: var(--cream);
+    }
+
+    ::selection { background: var(--yellow); color: var(--ink); }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* ====== NAV ====== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(254,252,246,.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,26,26,.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.06); }
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.85rem;
+      position: relative;
+      transition: color .2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 2px;
+      background: var(--yellow);
+      transform: scaleX(0);
+      transition: transform .25s ease-out;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ====== HERO — 紧凑横排 ====== */
+    .hero {
+      padding: 100px 0 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: 'AI PM';
+      position: absolute;
+      top: 50%;
+      right: -5%;
+      transform: translateY(-50%);
+      font-family: 'Fraunces', serif;
+      font-size: clamp(8rem, 20vw, 16rem);
+      font-weight: 900;
+      color: var(--blue);
+      opacity: 0.03;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: clamp(24px, 4vw, 48px);
+    }
+    .hero-avatar {
+      width: clamp(80px, 10vw, 110px);
+      height: clamp(80px, 10vw, 110px);
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 6px 30px rgba(43,127,216,0.15);
+      position: relative;
+    }
+    .hero-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border: 2px dashed rgba(43,127,216,0.2);
+      border-radius: 50%;
+      animation: spin 20s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-text h1 {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.2;
+    }
+    .hero-text h1 .hl {
+      background: linear-gradient(transparent 60%, rgba(244,215,88,0.35) 60%);
+      padding: 0 4px;
+    }
+    .hero-desc {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      margin-top: 8px;
+      max-width: 520px;
+      line-height: 1.8;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .hero-tags .tag {
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    }
+    .tag--blue { border-left: 3px solid var(--blue); }
+    .tag--yellow { border-left: 3px solid var(--yellow); }
+    .tag--red { border-left: 3px solid var(--red); }
+
+    /* ====== BENTO 总览 ====== */
+    .overview {
+      padding: 20px 0 clamp(60px, 10vh, 100px);
+    }
+    .overview-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ink-faint);
+      margin-bottom: 16px;
+    }
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+    .bento-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.05);
+      text-decoration: none;
+      color: var(--ink);
+      transition: transform .25s, box-shadow .25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .bento-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.1);
+    }
+    .bento-card--wide {
+      grid-column: span 2;
+    }
+    .bento-thumb {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, var(--cream-dark), #fff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-card--wide .bento-thumb {
+      aspect-ratio: 2/1;
+    }
+    .bento-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .bento-thumb .ph {
+      font-family: 'Caveat', cursive;
+      font-size: 0.9rem;
+      color: var(--ink-faint);
+      text-align: center;
+      padding: 16px;
+    }
+    .bento-info {
+      padding: 16px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .bento-company {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-faint);
+    }
+    .bento-title {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 900;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+    .bento-metric {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--blue);
+      margin-top: auto;
+      padding-top: 4px;
+    }
+    .bento-color {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    /* ====== CASE STUDY 通用 ====== */
+    .case {
+      padding: clamp(60px, 10vh, 120px) 0;
+    }
+    .case--alt { background: var(--cream-dark); }
+
+    .case-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .case-number {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      color: var(--blue);
+      opacity: 0.3;
+    }
+    .case-company {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 900;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    }
+    .case-role {
+      font-size: 0.72rem;
+      padding: 3px 12px;
+      border-radius: 20px;
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+    .case-period {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      margin-bottom: clamp(24px, 4vw, 40px);
+    }
+    .case-title {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 900;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .case-desc {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      line-height: 1.9;
+      max-width: 720px;
+      margin-bottom: clamp(24px, 4vw, 40px);
+    }
+
+    /* 大图 — Case Study 主图 */
+    .case-hero-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, var(--cream-dark), #fff);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(0,0,0,.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(0,0,0,.04);
+      margin-bottom: clamp(24px, 4vw, 40px);
+    }
+    .case-hero-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .case-hero-img .ph {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--ink-faint);
+      text-align: center;
+      padding: 24px;
+    }
+    .case-img-caption {
+      font-family: 'Caveat', cursive;
+      font-size: 0.82rem;
+      color: var(--ink-faint);
+      text-align: center;
+      margin-top: -24px;
+      margin-bottom: 32px;
+    }
+
+    /* 双图并排 */
+    .case-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: clamp(24px, 4vw, 40px);
+    }
+    .case-duo .case-img {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--cream-dark), #fff);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(0,0,0,.04);
+    }
+    .case-duo .case-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .case-duo .case-img .ph {
+      font-family: 'Caveat', cursive;
+      font-size: 0.9rem;
+      color: var(--ink-faint);
+      text-align: center;
+      padding: 16px;
+    }
+
+    /* 亮点列表 */
+    .case-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .case-highlights li {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.7;
+    }
+    .case-highlights li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      font-size: 0.55rem;
+      top: 5px;
+      color: var(--blue);
+    }
+    .metric {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    /* 结果标签 */
+    .case-result {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    /* ====== 小米子项目卡片 ====== */
+    .sub-projects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: clamp(40px, 6vw, 64px);
+    }
+    .sub-project {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.05);
+      position: relative;
+    }
+    .sub-project::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .sub-project:first-child::before { background: var(--yellow); }
+    .sub-project:last-child::before { background: var(--red); }
+    .sub-img {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, var(--cream-dark), #fff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .sub-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .sub-img .ph {
+      font-family: 'Caveat', cursive;
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+      text-align: center;
+      padding: 16px;
+    }
+    .sub-body {
+      padding: 24px;
+    }
+    .sub-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .sub-tag--yellow { background: var(--yellow-soft); color: #9a8100; }
+    .sub-tag--red { background: var(--red-soft); color: var(--red); }
+    .sub-body h4 {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 900;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+    .sub-body p {
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      line-height: 1.8;
+    }
+
+    /* ====== Moonshot — 数据亮点 Grid ====== */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: clamp(32px, 5vw, 56px);
+    }
+    .stat-card {
+      text-align: center;
+      padding: 24px 16px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.04);
+    }
+    .stat-num {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--blue);
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+      margin-top: 4px;
+    }
+
+    /* Moonshot 工作模块 — 两列大图 */
+    .moon-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .moon-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.05);
+    }
+    .moon-img {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, var(--cream-dark), #fff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .moon-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .moon-img .ph {
+      font-family: 'Caveat', cursive;
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+      text-align: center;
+      padding: 16px;
+    }
+    .moon-body {
+      padding: 24px;
+    }
+    .moon-body h4 {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 900;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+    .moon-body p {
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      line-height: 1.8;
+    }
+
+    /* ====== 深色引用面板 ====== */
+    .dark-section {
+      background: var(--dark-panel);
+      color: #e2e8f0;
+      padding: clamp(60px, 10vh, 120px) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .dark-section::before {
+      content: '\201C';
+      position: absolute;
+      top: -20px;
+      left: 10%;
+      font-family: 'Fraunces', serif;
+      font-size: 18rem;
+      color: rgba(244,215,88,0.05);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .dark-section .quote-text {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      line-height: 1.8;
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .dark-section .quote-text em {
+      color: var(--yellow);
+      font-style: normal;
+    }
+    .dark-section .quote-attr {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.82rem;
+      opacity: 0.5;
+      font-family: 'Caveat', cursive;
+    }
+
+    /* ====== 教育 + 技能 合并紧凑 ====== */
+    .bottom-section {
+      padding: clamp(60px, 10vh, 120px) 0;
+    }
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px);
+    }
+    .section-label {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--blue);
+      opacity: 0.4;
+      margin-bottom: 4px;
+    }
+    .section-heading {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 900;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      margin-bottom: clamp(20px, 3vw, 32px);
+    }
+
+    .edu-item {
+      margin-bottom: 24px;
+    }
+    .edu-item h4 {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 900;
+      font-size: 1rem;
+    }
+    .edu-item .edu-sub {
+      font-size: 0.85rem;
+      color: var(--ink-light);
+    }
+    .edu-item .edu-detail {
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      margin-top: 4px;
+      line-height: 1.7;
+    }
+    .edu-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.65rem;
+      background: var(--blue-soft);
+      color: var(--blue);
+      margin-top: 4px;
+    }
+
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .skill-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .skill-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      width: 32px;
+      text-align: center;
+    }
+    .skill-row h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .skill-row p {
+      font-size: 0.78rem;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+    /* ====== CTA ====== */
+    .cta-section {
+      text-align: center;
+      padding: clamp(60px, 10vh, 100px) 2rem;
+      border-top: 1px solid rgba(0,0,0,.05);
+    }
+    .cta-section h2 {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 900;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      margin-bottom: 0.8rem;
+    }
+    .cta-section p {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      margin-bottom: 1.5rem;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(43,127,216,0.3);
+    }
+    .cta-button--outline {
+      background: transparent;
+      color: var(--ink);
+      border: 2px solid rgba(26,26,46,.12);
+    }
+    .cta-button--outline:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      box-shadow: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    /* ====== Scroll Reveal ====== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ====== 响应式 ====== */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero-inner { flex-direction: column; text-align: center; }
+      .hero-tags { justify-content: center; }
+      .bento { grid-template-columns: 1fr; }
+      .bento-card--wide { grid-column: span 1; }
+      .case-duo { grid-template-columns: 1fr; }
+      .sub-projects { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .moon-grid { grid-template-columns: 1fr; }
+      .bottom-grid { grid-template-columns: 1fr; }
+      .cta-button { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">Zhang<span>Qian</span></a>
+    <div class="nav-links">
+      <a href="#bytedance">字节跳动</a>
+      <a href="#xiaomi">小米</a>
+      <a href="#moonshot">月之暗面</a>
+      <a href="#about">关于</a>
+      <a href="#contact">联系</a>
+    </div>
+  </nav>
+
+  <!-- HERO — 紧凑，一眼看到下面的内容 -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner reveal">
+        <div class="hero-avatar">
+          <img src="WechatIMG823.jpg" alt="张倩">
+        </div>
+        <div class="hero-text">
+          <h1>张倩 · <span class="hl">AI 产品经理</span></h1>
+          <p class="hero-desc">清华大学硕士，三段头部 AI 公司实习。专注大模型产品策略、Agent 架构、评测体系与数据驱动增长。</p>
+          <div class="hero-tags">
+            <span class="tag tag--blue">Agent 架构</span>
+            <span class="tag tag--blue">用户研究</span>
+            <span class="tag tag--yellow">模型评测</span>
+            <span class="tag tag--yellow">数据策略</span>
+            <span class="tag tag--red">A/B 实验</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENTO 总览 — 首屏可见，一眼看全所有项目 -->
+  <section class="overview">
+    <div class="container">
+      <p class="overview-label reveal">Featured Projects</p>
+      <div class="bento">
+        <!-- 字节跳动 — 宽卡 -->
+        <a href="#bytedance" class="bento-card bento-card--wide reveal reveal-d1">
+          <div class="bento-thumb">
+            <div class="bento-color" style="background:var(--blue)"></div>
+            <span class="ph">📱 TikTok AI 导购助手产品界面<br><small>替换为产品截图</small></span>
+          </div>
+          <div class="bento-info">
+            <span class="bento-company">ByteDance · 2026</span>
+            <span class="bento-title">TikTok 商城 AI 导购助手</span>
+            <span class="bento-metric">GMV +7.4%  ·  有行为率 +1.18%</span>
+          </div>
+        </a>
+
+        <!-- 小米摄像头 -->
+        <a href="#xiaomi" class="bento-card reveal reveal-d2">
+          <div class="bento-thumb">
+            <div class="bento-color" style="background:var(--blue)"></div>
+            <span class="ph">📹 智能摄像头 VLM 评测<br><small>替换为评测看板截图</small></span>
+          </div>
+          <div class="bento-info">
+            <span class="bento-company">Xiaomi · 2025</span>
+            <span class="bento-title">家庭看护 VLM 评测体系</span>
+            <span class="bento-metric">评分 0.59 → 0.91</span>
+          </div>
+        </a>
+
+        <!-- Miloco -->
+        <a href="#xiaomi" class="bento-card reveal reveal-d3">
+          <div class="bento-thumb">
+            <div class="bento-color" style="background:var(--yellow)"></div>
+            <span class="ph">🤖 Miloco 手势识别效果<br><small>替换为 Demo 截图</small></span>
+          </div>
+          <div class="bento-info">
+            <span class="bento-company">Xiaomi · Miloco</span>
+            <span class="bento-title">端侧 VLM 数据策略</span>
+            <span class="bento-metric">精准度 0.62 → 0.85</span>
+          </div>
+        </a>
+
+        <!-- Milva -->
+        <a href="#xiaomi" class="bento-card reveal reveal-d3">
+          <div class="bento-thumb">
+            <div class="bento-color" style="background:var(--red)"></div>
+            <span class="ph">🏠 全屋智能上帝视角<br><small>替换为 Demo 截图</small></span>
+          </div>
+          <div class="bento-info">
+            <span class="bento-company">Xiaomi · Milva</span>
+            <span class="bento-title">多 Agent 全屋智能交互</span>
+          </div>
+        </a>
+
+        <!-- Moonshot — 宽卡 -->
+        <a href="#moonshot" class="bento-card bento-card--wide reveal reveal-d4">
+          <div class="bento-thumb">
+            <div class="bento-color" style="background:var(--blue)"></div>
+            <span class="ph">📊 Kimi 用户研究 & 增长分析看板<br><small>替换为研究产出截图</small></span>
+          </div>
+          <div class="bento-info">
+            <span class="bento-company">Moonshot AI · 2024</span>
+            <span class="bento-title">Kimi 产品策略 · 用户研究 · 竞品分析 · 增长归因</span>
+            <span class="bento-metric">30+ 访谈  ·  32.3 万条 case  ·  10+ 竞品追踪</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CASE 1: 字节跳动 ====== -->
+  <section class="case" id="bytedance">
+    <div class="container">
+      <div class="case-header reveal">
+        <span class="case-number">01</span>
+        <span class="case-company">字节跳动</span>
+        <span class="case-role">AI 产品经理</span>
+      </div>
+      <p class="case-period reveal">2026.03 — 2026.06 · GEC-Search / AI Shopping</p>
+
+      <h2 class="case-title reveal">TikTok 商城 AI 导购助手</h2>
+      <p class="case-desc reveal">负责 TikTok Shop AI 导购助手的对话策略优化与 Agent 架构升级。以消费者决策阶段为框架，重新定义导购意图分类体系、回复策略与追问机制，拓展商品评价、视频佐证等信息源。</p>
+
+      <!-- 主图 — 全宽大图 -->
+      <div class="case-hero-img reveal">
+        <span class="ph">📱 TikTok Shop AI 导购助手完整界面截图<br>对话流程、商品推荐卡片、追问交互<br><small>替换为你的产品截图（推荐 1440×810 或更大）</small></span>
+      </div>
+
+      <ul class="case-highlights reveal">
+        <li><strong>对话策略优化</strong> — AB 实验验证新策略组 GMV 提升 <span class="metric">+7.4%</span>，有行为率提升 <span class="metric">+1.18%</span></li>
+        <li><strong>Agent 架构升级</strong> — 参与 Harness-based 架构，将场景策略封装为独立 Skill 配置，解决 Prompt 膨胀与指令冲突</li>
+        <li><strong>评测体系</strong> — 设计 LLM-as-Judge 自动评测 Pipeline，覆盖意图理解、信息完整性、解释质量、结构可读性四维度</li>
+      </ul>
+
+      <!-- 双图 — Agent 架构 + 评测框架 -->
+      <div class="case-duo reveal">
+        <div class="case-img">
+          <span class="ph">🔧 Harness-based Agent 架构图<br><small>替换为架构图（推荐 800×600）</small></span>
+        </div>
+        <div class="case-img">
+          <span class="ph">📊 LLM-as-Judge 评测 Pipeline 示意<br><small>替换为评测流程图（推荐 800×600）</small></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CASE 2: 小米 ====== -->
+  <section class="case case--alt" id="xiaomi">
+    <div class="container">
+      <div class="case-header reveal">
+        <span class="case-number">02</span>
+        <span class="case-company">小米</span>
+        <span class="case-role">大模型产品经理</span>
+      </div>
+      <p class="case-period reveal">2025.08 — 2026.03 · 大模型团队</p>
+
+      <h2 class="case-title reveal">家庭看护 VLM 评测体系</h2>
+      <p class="case-desc reveal">从 0 到 1 搭建部署于家庭摄像头的视觉语言模型（MiMo-VL）评测体系。围绕看护场景核心价值设计三维评测标准，准出标准基于竞品对标与用户容忍度研究制定。</p>
+
+      <!-- 主图 — 全宽大图 -->
+      <div class="case-hero-img reveal">
+        <span class="ph">📊 VLM 评测报告全景：评测维度、评分趋势、Badcase 分析<br><small>替换为评测数据看板截图（推荐 1440×810）</small></span>
+      </div>
+
+      <div class="case-duo reveal">
+        <div class="case-img">
+          <span class="ph">📹 小米智能摄像头产品实拍 / 看护场景<br><small>替换为产品图（推荐 800×600）</small></span>
+        </div>
+        <div class="case-img">
+          <span class="ph">📈 评测评分迭代趋势 0.59 → 0.91<br><small>替换为数据图表（推荐 800×600）</small></span>
+        </div>
+      </div>
+
+      <span class="case-result reveal">综合评分 0.59 → 0.91，支撑 2026.04 上市发布</span>
+
+      <!-- 子项目：Miloco + Milva -->
+      <div class="sub-projects">
+        <div class="sub-project reveal">
+          <div class="sub-img">
+            <span class="ph">🤖 Miloco 手势识别 Demo / GitHub 页面<br><small>替换为截图（推荐 800×500）</small></span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-tag sub-tag--yellow">Miloco · 开源项目</span>
+            <h4>端侧 VLM 数据策略</h4>
+            <p>负责 Miloco 在手势交互、电竞、健身等长尾场景的 SFT 数据策略。定义场景能力边界，制定采集标准，完成质量验收。手势识别精准度 <strong>0.62 → 0.85</strong>。</p>
+          </div>
+        </div>
+        <div class="sub-project reveal reveal-d1">
+          <div class="sub-img">
+            <span class="ph">🏠 Milva 全屋智能上帝视角界面<br><small>替换为 Demo 截图（推荐 800×500）</small></span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-tag sub-tag--red">Milva · 全屋智能</span>
+            <h4>多 Agent 全屋智能交互</h4>
+            <p>参与全屋智能产品架构设计。核心理念「AI 主动感知规控家庭空间」。定义三层架构（感知→记忆→执行），设计寻物、扫地机、空调等多 Agent 交互。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 深色引用 ====== -->
+  <section class="dark-section">
+    <div class="container reveal">
+      <p class="quote-text">
+        从<em>用户洞察</em>到<em>模型评测</em>，从<em>数据策略</em>到<em>Agent 架构</em>——<br>
+        好的 AI 产品经理，既要理解人，也要理解模型。
+      </p>
+      <p class="quote-attr">— Zhang Qian's product philosophy</p>
+    </div>
+  </section>
+
+  <!-- ====== CASE 3: 月之暗面 ====== -->
+  <section class="case" id="moonshot">
+    <div class="container">
+      <div class="case-header reveal">
+        <span class="case-number">03</span>
+        <span class="case-company">月之暗面（Moonshot AI）</span>
+        <span class="case-role">AI 产品战略实习生</span>
+      </div>
+      <p class="case-period reveal">2024.01 — 2025.02 · Kimi 用户规模快速增长期</p>
+
+      <h2 class="case-title reveal">Kimi 产品策略与用户增长</h2>
+
+      <!-- 数据亮点 -->
+      <div class="stats-row reveal">
+        <div class="stat-card">
+          <div class="stat-num">30+</div>
+          <div class="stat-label">深度访谈</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">1000+</div>
+          <div class="stat-label">用户问卷</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">32.3万</div>
+          <div class="stat-label">用户 Case 分析</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">竞品持续追踪</div>
+        </div>
+      </div>
+
+      <!-- 四个工作模块 — 两列大图卡片 -->
+      <div class="moon-grid">
+        <div class="moon-card reveal">
+          <div class="moon-img">
+            <span class="ph">📋 用户研究报告 / 用户画像图谱<br><small>替换为研究产出截图（推荐 800×500）</small></span>
+          </div>
+          <div class="moon-body">
+            <h4>深度用户研究</h4>
+            <p>覆盖编程、论文写作、专业搜索、情感陪伴等垂直场景，识别高价值场景与未满足需求，输出用户画像与场景优先级矩阵。</p>
+          </div>
+        </div>
+        <div class="moon-card reveal reveal-d1">
+          <div class="moon-img">
+            <span class="ph">📊 竞品分析看板 / 功能对比矩阵<br><small>替换为数据看板截图（推荐 800×500）</small></span>
+          </div>
+          <div class="moon-body">
+            <h4>竞品监测体系</h4>
+            <p>建立竞品监测体系，持续追踪 10+ 款 AI 产品动态，输出竞品分析报告。完成搜索、教育、健康等赛道深度研究。</p>
+          </div>
+        </div>
+        <div class="moon-card reveal">
+          <div class="moon-img">
+            <span class="ph">📈 增长归因分析 / 异动报告图<br><small>替换为增长数据截图（推荐 800×500）</small></span>
+          </div>
+          <div class="moon-body">
+            <h4>增长归因分析</h4>
+            <p>监控社媒声量，定位微博热搜（42.9% 峰值事件）、KOL 爆款及财经新闻三大增长引擎，输出异动归因报告。</p>
+          </div>
+        </div>
+        <div class="moon-card reveal reveal-d1">
+          <div class="moon-img">
+            <span class="ph">🧪 评测数据集 / 模型能力对比图<br><small>替换为评测截图（推荐 800×500）</small></span>
+          </div>
+          <div class="moon-body">
+            <h4>模型训练及评测</h4>
+            <p>从 0→1 构建垂直领域基准测试数据集，定义图表数据分析场景回答理想态，为 Kimi 视觉思考能力构建训练数据。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 教育 + 技能 ====== -->
+  <section class="bottom-section case--alt" id="about">
+    <div class="container">
+      <div class="bottom-grid">
+        <!-- 教育 -->
+        <div class="reveal">
+          <p class="section-label">04</p>
+          <h2 class="section-heading">教育背景</h2>
+          <div class="edu-item">
+            <h4>清华大学</h4>
+            <p class="edu-sub">公共卫生与健康学院 · 公共卫生硕士</p>
+            <p class="edu-detail">研究方向：卫生经济学评价、AI 辅助诊断软件经济性分析。参与糖尿病视网膜病变 AI 辅助诊断卫生经济学分析。</p>
+            <span class="edu-badge">2024 — 2027</span>
+          </div>
+          <div class="edu-item">
+            <h4>清华大学</h4>
+            <p class="edu-sub">社会科学学院 · 经济学</p>
+            <p class="edu-detail">获清华-万科特长发展奖学金（创新创业）、学业优秀奖学金。</p>
+            <span class="edu-badge">2020 — 2024</span>
+          </div>
+        </div>
+        <!-- 技能 -->
+        <div class="reveal reveal-d1">
+          <p class="section-label">05</p>
+          <h2 class="section-heading">核心技能</h2>
+          <div class="skill-list">
+            <div class="skill-row">
+              <span class="skill-icon">🧠</span>
+              <div>
+                <h4>AI 产品设计</h4>
+                <p>Agent 架构、Prompt 策略、对话系统交互、多模态方案</p>
+              </div>
+            </div>
+            <div class="skill-row">
+              <span class="skill-icon">📊</span>
+              <div>
+                <h4>数据驱动决策</h4>
+                <p>A/B 实验设计与分析、行为分析、转化率优化、增长归因</p>
+              </div>
+            </div>
+            <div class="skill-row">
+              <span class="skill-icon">🔬</span>
+              <div>
+                <h4>模型评测</h4>
+                <p>LLM-as-Judge、Rubric 设计、Benchmark 校准</p>
+              </div>
+            </div>
+            <div class="skill-row">
+              <span class="skill-icon">👥</span>
+              <div>
+                <h4>用户研究</h4>
+                <p>深度访谈、问卷设计、竞品分析、场景需求挖掘</p>
+              </div>
+            </div>
+            <div class="skill-row">
+              <span class="skill-icon">💻</span>
+              <div>
+                <h4>技术工具</h4>
+                <p>Python · SQL · Stata · R · AI 编程 · PRD</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <h2 class="reveal">期待与你交流</h2>
+    <p class="reveal reveal-d1">如果你对 AI 产品、Agent 架构或用户研究感兴趣，欢迎联系我</p>
+    <div class="cta-buttons reveal reveal-d2">
+      <a href="mailto:your-email@example.com" class="cta-button">发送邮件</a>
+      <a href="#" class="cta-button cta-button--outline">下载简历</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 张倩</p>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 40);
+    });
+  </script>
+</body>
+</html>
